@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <title>User list</title>
+   </head>
+   <body>
+      <table border="1">
+         <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Login</th>
+            <th>Role</th>
+         </tr>
+         {{range .}}
+	         <tr>
+	            <td>{{.Id}}</td>
+	            <td>{{.Name}}</td>
+	            <td>{{.Login}}</td>
+	            <td>{{.Role}}</td>
+	         </tr>
+         {{end}}
+      </table>
+   </body>
+</html>
