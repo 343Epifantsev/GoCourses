@@ -6,10 +6,11 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
+
+	"./config"
 )
 
 func main() {
-	fmt.Println("Listening for port 8085")
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		url, error := base64.StdEncoding.DecodeString(strings.TrimPrefix(r.URL.Path, "/"))
 		if error == nil {
@@ -20,5 +21,13 @@ func main() {
 			fmt.Println(error)
 		}
 	})
-	http.ListenAndServe(":8085", nil)
+
+	var tsconfig config.TrackServerConfig
+	tsconfig, err := config.RecieveConfig()
+	if err != nil {
+		panic(1)
+	} else {
+		fmt.Printf("Listening for port %s\n", tsconfig.Port)
+		http.ListenAndServe(tsconfig.Port, nil)
+	}
 }
